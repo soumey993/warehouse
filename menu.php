@@ -67,7 +67,7 @@
         </a>
         <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
         <li>
-            <a href="livraisonclt.php">
+            <a href="./?page=livraisonclt">
               <i class="bi bi-circle"></i><span>Livraisons</span>
             </a>
           </li>
