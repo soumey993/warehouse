@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Gestion de Magasins et Boutiques</title>
+  <title>Gestion </title>
   <meta content="" name="description">
   <meta content="" name="keywords">
 
