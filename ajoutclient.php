@@ -137,38 +137,28 @@
     <section class="section">
       <div class="col-md-12">
       <div class="bg-transparent rounded h-100 p-4">
-                        <h4> Enregistrement des Fournisseurs</h4>
+                        <h4> Enregistrement des Clients</h4>
                     <hr>
             <form action="" method="post">
                 <div class="form-group mb-3">
-                    <label for="">Nom</label>
-                    <input type="text" name="nom_fournisseur" class="form-control" placeholder="Entrez nom " required> 
+                    <label for="">Nom </label>
+                    <input type="text" name="nom_client" class="form-control" placeholder="Entrez nom client" required> 
 
                 </div>
                 <div class="form-group mb-3">
                     <label for="">Prenom</label>
-                    <input type="text" name="prenom_fournisseur" class="form-control" placeholder="Entrez prenom" required> 
+                    <input type="text" name="prenom_client" class="form-control" placeholder="Entrez prenom client" required> 
 
                 </div>
                 <div class="form-group mb-3">
-                    <label for="">Contact</label>
-                    <input type="int" name="contact_fournisseur" class="form-control" placeholder="Entrez contact" required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Mail</label>
-                    <input type="text" name="mail_fournisseur" class="form-control" placeholder="Entrez mail" required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Pays</label>
-                    <input type="text" name="pays_fournisseur" class="form-control" placeholder="Entrez pays" required> 
+                    <label for="">Telephone</label>
+                    <input type="int" name="telephone_client" class="form-control" placeholder="Entrez le numero client" required> 
 
                 </div>
                 
                 
                 <button type="submit" name="augmente" class="btn btn-success">Enregistrer</button>
-                <a href="./?page=fournisseur" class="btn btn-danger"> Annuler </a>
+                <a href="./?page=client" class="btn btn-danger"> Annuler </a>
             </form>
 
             <?php
@@ -177,15 +167,11 @@
 
       if(isset($_POST['augmente']))
       {
-          $nomcommune= $_POST['nom_fournisseur'];
-          $nbrehbt= $_POST['prenom_fournisseur'];
-          $contact= $_POST['contact_fournisseur'];
-          $mail= $_POST['mail_fournisseur'];
-          $pays= $_POST['pays_fournisseur'];
-          
+          $nomcommune= $_POST['nom_client'];
+          $nbrehbt= $_POST['prenom_client'];
+          $tel= $_POST['telephone_client'];
 
-          $query = "INSERT INTO fournisseur(nom_fournisseur, prenom_fournisseur, contact_fournisseur, mail_fournisseur, pays_fournisseur) 
-          VALUES('$nomcommune', '$nbrehbt', $contact, ' $mail', '$pays')";
+          $query = "INSERT INTO client(nom_client, prenom_client,telephone_client) VALUES('$nomcommune', '$nbrehbt', $tel)";
           $query_run = mysqli_query($connection, $query);
 
           if($query_run)
@@ -201,22 +187,20 @@
 ?>
 
         <div class="clearfix"></div>
-        <h6 class="mb-4 my-4">Fournisseurs déjà Enregistrés</h6>
+        <h6 class="mb-4 my-4">Clients déjà Enregistrés</h6>
         <table class="table table-bordered">
                <thead class="table-dark">
                  <tr>
                      <th>ID</th>
                      <th>Nom</th>
-                     <th>Prenom</th>
-                     <th>Contact</th>
-                     <th>Mail</th>
-                     <th>Pays</th>     
+                     <th>Prenom</th>  
+                     <th>Telephone</th>    
                 </tr>
                 </thead>
 
                 <tbody>
                   <?php
-                  $sql1 = "SELECT * FROM fournisseur where etat=1";
+                  $sql1 = "SELECT * FROM client where etat=1";
                   $requete1 = mysqli_query($connection, $sql1);
                   $Donnees = mysqli_fetch_all($requete1);
                   foreach($Donnees as $Donnee){ 
@@ -225,8 +209,6 @@
                         <th>$Donnee[1]</th>
                         <th>$Donnee[2]</th>
                         <th>$Donnee[3]</th>
-                        <th>$Donnee[4]</th>
-                        <th>$Donnee[5]</th>
                      
                         
                           </tr>" ;

@@ -17,7 +17,7 @@
                      if($query_run)
                      {
                         echo '<script> alert("suppression effectuée effectuée"); </script>';
-                        header("location: magasin.php");
+                        header("location: ./?page=magasin");
                      }
                      else{
                         echo '<script> alert("suppression non effectuée"); </script>';
@@ -25,10 +25,6 @@
                  }
 
             ?>
-
-
-       
-   
 
                 <?php
     ?>

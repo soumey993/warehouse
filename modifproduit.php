@@ -16,6 +16,14 @@
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+     
+  
+  <!-- Icon Font Stylesheet -->
+  <script src="https://kit.fontawesome.com/d4de07a71e.js" crossorigin="anonymous"></script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+ 
+ 
       <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -129,116 +137,117 @@
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
+
   <?php include_once "menu.php"; ?>
 
   <main id="main" class="main">
+  <?php
+                  $connection = mysqli_connect("localhost", "root", "");
+                  $db = mysqli_select_db($connection, 'gestion_stock');
+                  $idcommune = $_GET['modif'];
 
-   
-    <section class="section">
+                  $query= "SELECT * FROM produit where id_produit='$idcommune' ";
+                  $query_run = mysqli_query($connection, $query);
+
+                  if($query_run)
+                  {
+                      while($row = mysqli_fetch_array($query_run))
+                      {
+
+                      ?>
+     <section class="section">
       <div class="col-md-12">
       <div class="bg-transparent rounded h-100 p-4">
-                        <h4> Enregistrement des Fournisseurs</h4>
-                    <hr>
-            <form action="" method="post">
+    
+                    <h4>Modification des Produits:</h4>
+                  <hr>
+                  <form action="" method="post">
+                      <input type="hidden" name="id_produit" value="<?php echo $row['id_produit'] ?>">
+                        <div class="form-group mb-3">
+                            <label for="">Nom Produit</label>
+                            <input type="text" name="nom_produit" class="form-control"  value="<?php echo $row['nom_produit'] ?>" placeholder="Entrez nom produit" required> 
+
+                          </div>
                 <div class="form-group mb-3">
-                    <label for="">Nom</label>
-                    <input type="text" name="nom_fournisseur" class="form-control" placeholder="Entrez nom " required> 
+                    <label for="">Prix Achat</label>
+                    <input type="float" name="prix_achat" class="form-control" value="<?php echo $row['prix_achat'] ?>" placeholder="Entrez prix achat" required> 
 
                 </div>
                 <div class="form-group mb-3">
-                    <label for="">Prenom</label>
-                    <input type="text" name="prenom_fournisseur" class="form-control" placeholder="Entrez prenom" required> 
+                    <label for="">Prix vente</label>
+                    <input type="float" name="prix_vente" class="form-control" value="<?php echo $row['prix_vente'] ?>" placeholder="Entrez prix vente" required> 
 
                 </div>
                 <div class="form-group mb-3">
-                    <label for="">Contact</label>
-                    <input type="int" name="contact_fournisseur" class="form-control" placeholder="Entrez contact" required> 
+                    <label for="">Quantité en Stock</label>
+                    <input type="int" name="quantite_stock" class="form-control" value="<?php echo $row['quantite_stock'] ?>" placeholder="Entrez quantité stock" required> 
 
                 </div>
                 <div class="form-group mb-3">
-                    <label for="">Mail</label>
-                    <input type="text" name="mail_fournisseur" class="form-control" placeholder="Entrez mail" required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Pays</label>
-                    <input type="text" name="pays_fournisseur" class="form-control" placeholder="Entrez pays" required> 
-
-                </div>
-                
-                
-                <button type="submit" name="augmente" class="btn btn-success">Enregistrer</button>
-                <a href="./?page=fournisseur" class="btn btn-danger"> Annuler </a>
+                            <label for="libelle_categorie">Categorie</label>
+                            <select class="form-control" name="id_categorie">
+                              <option value="">selectionnez la categorie du produit</option>
+                                <?php
+                                    $sqlcommunes = "select * from categorie where etat=1";
+                                    $rqtcommune = mysqli_query($connection, $sqlcommunes);
+                                    $Donnees = mysqli_fetch_all($rqtcommune); 
+                                  
+                                    foreach ($Donnees as $Donnee){
+                                      echo "<option value='".$Donnee[0]. 
+                                      " '> ".$Donnee[1]. " </option>";
+                                      
+                                    }
+                                  ?>
+                            </select>
+                         </div>
+               
+                <button type="submit" name="modif" class="btn btn-primary">Modifier</button>
+                <a href="./?page=produit" class="btn btn-danger"> Annuler </a>
             </form>
 
+
             <?php
-      $connection = mysqli_connect("localhost","root", "");
-      $db = mysqli_select_db($connection, 'gestion_stock');
+                 if(isset($_POST['modif']))
+                 {
+                     $nomcommune = $_POST['nom_produit'];
+                     $prix_achat = $_POST['prix_achat'];
+                     $prix_vente = $_POST['prix_vente'];
+                     $quantite = $_POST['quantite_stock'];
+                     $libelle = $_POST['id_categorie'];
+                    
 
-      if(isset($_POST['augmente']))
-      {
-          $nomcommune= $_POST['nom_fournisseur'];
-          $nbrehbt= $_POST['prenom_fournisseur'];
-          $contact= $_POST['contact_fournisseur'];
-          $mail= $_POST['mail_fournisseur'];
-          $pays= $_POST['pays_fournisseur'];
-          
+                     $query = "UPDATE produit SET nom_produit = '$nomcommune', prix_achat = $prix_achat, 
+                     prix_vente = $prix_vente, quantite_stock= $quantite, id_categorie=$libelle WHERE id_produit= '$idcommune' ";
+                     $query_run = mysqli_query($connection, $query);
 
-          $query = "INSERT INTO fournisseur(nom_fournisseur, prenom_fournisseur, contact_fournisseur, mail_fournisseur, pays_fournisseur) 
-          VALUES('$nomcommune', '$nbrehbt', $contact, ' $mail', '$pays')";
-          $query_run = mysqli_query($connection, $query);
+                     if($query_run)
+                     {
+                        echo '<script> alert("Modidication effectuée"); </script>';
+                      
+                     }
+                     else{
+                        echo '<script> alert("Modification non effectuée"); </script>';
+                     }
+                   }
 
-          if($query_run)
-          {
-              echo '<script> alert("Enregistrement effectué"); </script>';
-          }
-          else
-          {
-            echo '<script> alert("Enregistrement non effectué"); </script>';
-          }
-      }
-
-?>
-
-        <div class="clearfix"></div>
-        <h6 class="mb-4 my-4">Fournisseurs déjà Enregistrés</h6>
-        <table class="table table-bordered">
-               <thead class="table-dark">
-                 <tr>
-                     <th>ID</th>
-                     <th>Nom</th>
-                     <th>Prenom</th>
-                     <th>Contact</th>
-                     <th>Mail</th>
-                     <th>Pays</th>     
-                </tr>
-                </thead>
-
-                <tbody>
-                  <?php
-                  $sql1 = "SELECT * FROM fournisseur where etat=1";
-                  $requete1 = mysqli_query($connection, $sql1);
-                  $Donnees = mysqli_fetch_all($requete1);
-                  foreach($Donnees as $Donnee){ 
-                        echo "<tr>
-                        <th>$Donnee[0]</th>
-                        <th>$Donnee[1]</th>
-                        <th>$Donnee[2]</th>
-                        <th>$Donnee[3]</th>
-                        <th>$Donnee[4]</th>
-                        <th>$Donnee[5]</th>
-                     
-                        
-                          </tr>" ;
-                  }
-                  ?>
-                </tbody>
-         </table>
-                </div>
+                ?>
+             
+     
+     </div>
       </div>
+      <?php
+                            
+                        }
+                    }
+                    else{
+
+                    }
+
+                ?>
     </section>
 
   </main><!-- End #main -->
+  
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">

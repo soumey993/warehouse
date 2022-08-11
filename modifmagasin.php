@@ -137,122 +137,7 @@
   </header><!-- End Header -->
 
   <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
-
-    <ul class="sidebar-nav" id="sidebar-nav">
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="index.php">
-          <i class="bi bi-grid"></i>
-          <span>Tableau de Bord</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-layout-text-window-reverse"></i><span>Livraisons</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse show" data-bs-parent="#sidebar-nav">
-        <a href="livraison.php">
-              <i class="bi bi-circle"></i><span>livraisons</span>
-            </a>
-          </li>
-          <li>
-            <a href="magasin.php" class="active">
-              <i class="bi bi-circle"></i><span>Magasin</span>
-            </a>
-          </li>
-          <li>
-            <a href="fournisseur.php">
-              <i class="bi bi-circle"></i><span>Fournisseur</span>
-            </a>
-          </li>
-          <li>
-            <a href="produit.php">
-              <i class="bi bi-circle"></i><span>Produits</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Tables Nav -->
-      <li class="nav-item">
-        <a class="nav-link collapsed"  href="boutique.php">
-          <i class="bi bi-journal-text"></i><span>Boutiques</span>
-        </a>
-  
-      </li><!-- End Forms Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Ravitaillements</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-              <a href="magasin1.php">
-                <i class="bi bi-circle"></i><span>magasin</span>
-              </a>
-            </li>
-          <li>
-            <a href="boutique1.php">
-              <i class="bi bi-journal-text"></i><span>Boutiques</span>
-            </a>
-  
-         </li><!-- End Forms Nav -->
-         <li>
-            <a href="ravitaillement.php">
-              <i class="bi bi-journal-text"></i><span>ravitaillements</span>
-            </a>
-  
-         </li><!-- End Forms Nav -->
-        </ul>
-      </li><!-- End Charts Nav -->
-      <li class="nav-item">
-        <a class="nav-link " data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-gem"></i><span>Livraisons Client</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
-        <li>
-            <a href="livraisonclt.php">
-              <i class="bi bi-circle"></i><span>Livraisons</span>
-            </a>
-          </li>
-          <li>
-            <a href="client.php">
-              <i class="bi bi-circle"></i><span>Clients</span>
-            </a>
-          </li>
-          <li>
-            <a href="boutique2.php">
-              <i class="bi bi-circle"></i><span>Boutique</span>
-            </a>
-          </li>
-          <li>
-            <a href="produit1.php">
-              <i class="bi bi-circle"></i><span>Produit</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Icons Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="client.php">
-          <i class="bi bi-person"></i>
-          <span>Clients</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="vente.php">
-          <i class="bi bi-question-circle"></i>
-          <span>Achats</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
-
-    </ul>
-
-  </aside><!-- End Sidebar-->
-
- 
-
+  <?php include_once "menu.php"; ?>
   <main id="main" class="main">
   <?php
                   $connection = mysqli_connect("localhost", "root", "");
@@ -288,7 +173,7 @@
                 </div>
                
                 <button type="submit" name="modif" class="btn btn-primary">Modifier</button>
-                <a href="magasin.php" class="btn btn-danger"> Annuler </a>
+                <a href="./?page=magasin" class="btn btn-danger"> Annuler </a>
             </form>
 
 

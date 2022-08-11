@@ -1,7 +1,8 @@
-      <section class="section">
+     
+     <section class="section">
       <div class="col-md-12">
       <div class="bg-transparent rounded h-100 p-4">
-    <h3>Gestion des Livraisons</h3>
+       <h3>Gestion des Livraisons</h3>
             <hr>
 
             <button type="button" class="btn btn-success m-2">

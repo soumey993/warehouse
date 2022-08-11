@@ -16,6 +16,14 @@
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+     
+  
+  <!-- Icon Font Stylesheet -->
+  <script src="https://kit.fontawesome.com/d4de07a71e.js" crossorigin="anonymous"></script>
+      <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.10.0/css/all.min.css" rel="stylesheet">
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.4.1/font/bootstrap-icons.css" rel="stylesheet">
+ 
+ 
       <!-- Vendor CSS Files -->
   <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
   <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
@@ -132,118 +140,118 @@
   <?php include_once "menu.php"; ?>
 
   <main id="main" class="main">
+  <?php
+                  $connection = mysqli_connect("localhost", "root", "");
+                  $db = mysqli_select_db($connection, 'gestion_stock');
+                  $idcommune = $_GET['modif'];
 
-   
-    <section class="section">
+                  $query= "SELECT * FROM livraison_fournisseur where id_livraison_fournisseur='$idcommune' ";
+                  $query_run = mysqli_query($connection, $query);
+
+                  if($query_run)
+                  {
+                      while($row = mysqli_fetch_array($query_run))
+                      {
+
+                      ?>
+     <section class="section">
       <div class="col-md-12">
       <div class="bg-transparent rounded h-100 p-4">
-                        <h4> Enregistrement des Fournisseurs</h4>
-                    <hr>
-            <form action="" method="post">
+    
+                    <h4>Modification des Livraisons:</h4>
+                  <hr>
+                  <form action="" method="post">
+                      <input type="hidden" name="id_livraison_fournisseur" value="<?php echo $row['id_livraison_fournisseur'] ?>">
+                      <div class="form-group mb-3">
+                            <label for="contact_fournisseur">Contact Fournisseur</label>
+                            <select class="form-control" name="id_fournisseur">
+                              <option value="">selectionnez le Numero du Fournisseur</option>
+                                <?php
+                                    $sqlcommunes = "select * from fournisseur where etat=1";
+                                    $rqtcommune = mysqli_query($connection, $sqlcommunes);
+                                    $Donnees = mysqli_fetch_all($rqtcommune); 
+                                  
+                                    foreach ($Donnees as $Donnee){
+                                      echo "<option value='".$Donnee[0]. 
+                                      " '> ".$Donnee[3]. " </option>";
+                                      
+                                    }
+                                  ?>
+                            </select>
+                         </div>
+                         <div class="form-group mb-3">
+                            <label for="nom_magasin">Magasin</label>
+                            <select class="form-control" name="id_magasin">
+                              <option value="">selectionnez le Magasin de destination</option>
+                                <?php
+                                    $sqlcommunes = "select * from magasin where etat=1";
+                                    $rqtcommune = mysqli_query($connection, $sqlcommunes);
+                                    $Donnees = mysqli_fetch_all($rqtcommune); 
+                                  
+                                    foreach ($Donnees as $Donnee){
+                                      echo "<option value='".$Donnee[0]. 
+                                      " '> ".$Donnee[1]. " </option>";
+                                      
+                                    }
+                                  ?>
+                            </select>
+                        </div>
                 <div class="form-group mb-3">
-                    <label for="">Nom</label>
-                    <input type="text" name="nom_fournisseur" class="form-control" placeholder="Entrez nom " required> 
+                    <label for="">Date livraisons</label>
+                    <input type="date" name="date_livraison_fournisseur" class="form-control" value="<?php echo $row['date_livraison_fournisseur'] ?>" placeholder="Entrez prix vente" required> 
 
                 </div>
-                <div class="form-group mb-3">
-                    <label for="">Prenom</label>
-                    <input type="text" name="prenom_fournisseur" class="form-control" placeholder="Entrez prenom" required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Contact</label>
-                    <input type="int" name="contact_fournisseur" class="form-control" placeholder="Entrez contact" required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Mail</label>
-                    <input type="text" name="mail_fournisseur" class="form-control" placeholder="Entrez mail" required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Pays</label>
-                    <input type="text" name="pays_fournisseur" class="form-control" placeholder="Entrez pays" required> 
-
-                </div>
-                
-                
-                <button type="submit" name="augmente" class="btn btn-success">Enregistrer</button>
-                <a href="./?page=fournisseur" class="btn btn-danger"> Annuler </a>
+               
+                <button type="submit" name="modif" class="btn btn-primary">Modifier</button>
+                <a href="./?page=livraison" class="btn btn-danger"> Annuler </a>
             </form>
 
+
             <?php
-      $connection = mysqli_connect("localhost","root", "");
-      $db = mysqli_select_db($connection, 'gestion_stock');
+                 if(isset($_POST['modif']))
+                 {
+                     $nomcommune = $_POST['id_fournisseur'];
+                     $prix_achat = $_POST['id_fournisseur'];
+                     $prix_vente = $_POST['id_magasin'];
+                     $quantite = $_POST['date_livraison_fournisseur'];
 
-      if(isset($_POST['augmente']))
-      {
-          $nomcommune= $_POST['nom_fournisseur'];
-          $nbrehbt= $_POST['prenom_fournisseur'];
-          $contact= $_POST['contact_fournisseur'];
-          $mail= $_POST['mail_fournisseur'];
-          $pays= $_POST['pays_fournisseur'];
-          
+                     $query = "UPDATE livraison_fournisseur SET id_fournisseur = $nomcommune, id_fournisseur = $prix_achat, 
+                     id_magasin = $prix_vente, date_livraison_fournisseur= '$quantite'  WHERE id_livraison_fournisseur= '$idcommune' ";
+                     $query_run = mysqli_query($connection, $query);
 
-          $query = "INSERT INTO fournisseur(nom_fournisseur, prenom_fournisseur, contact_fournisseur, mail_fournisseur, pays_fournisseur) 
-          VALUES('$nomcommune', '$nbrehbt', $contact, ' $mail', '$pays')";
-          $query_run = mysqli_query($connection, $query);
+                     if($query_run)
+                     {
+                        echo '<script> alert("Modidication effectuée"); </script>';
+                      
+                     }
+                     else{
+                        echo '<script> alert("Modification non effectuée"); </script>';
+                     }
+                   }
 
-          if($query_run)
-          {
-              echo '<script> alert("Enregistrement effectué"); </script>';
-          }
-          else
-          {
-            echo '<script> alert("Enregistrement non effectué"); </script>';
-          }
-      }
-
-?>
-
-        <div class="clearfix"></div>
-        <h6 class="mb-4 my-4">Fournisseurs déjà Enregistrés</h6>
-        <table class="table table-bordered">
-               <thead class="table-dark">
-                 <tr>
-                     <th>ID</th>
-                     <th>Nom</th>
-                     <th>Prenom</th>
-                     <th>Contact</th>
-                     <th>Mail</th>
-                     <th>Pays</th>     
-                </tr>
-                </thead>
-
-                <tbody>
-                  <?php
-                  $sql1 = "SELECT * FROM fournisseur where etat=1";
-                  $requete1 = mysqli_query($connection, $sql1);
-                  $Donnees = mysqli_fetch_all($requete1);
-                  foreach($Donnees as $Donnee){ 
-                        echo "<tr>
-                        <th>$Donnee[0]</th>
-                        <th>$Donnee[1]</th>
-                        <th>$Donnee[2]</th>
-                        <th>$Donnee[3]</th>
-                        <th>$Donnee[4]</th>
-                        <th>$Donnee[5]</th>
-                     
-                        
-                          </tr>" ;
-                  }
-                  ?>
-                </tbody>
-         </table>
-                </div>
+                ?>
+             
+     
+     </div>
       </div>
+      <?php
+                            
+                        }
+                    }
+                    else{
+
+                    }
+
+                ?>
     </section>
 
   </main><!-- End #main -->
+  
 
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>NiceAdmin</span></strong>. All Rights Reserved
+      &copy; A.T.S<strong><span>A.T.S</span></strong>. Tous droits reservés
     </div>
     <div class="credits">
       <!-- All the links in the footer should remain intact. -->

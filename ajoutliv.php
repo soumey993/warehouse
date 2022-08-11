@@ -137,96 +137,123 @@
     <section class="section">
       <div class="col-md-12">
       <div class="bg-transparent rounded h-100 p-4">
-                        <h4> Enregistrement des Fournisseurs</h4>
-                    <hr>
-            <form action="" method="post">
-                <div class="form-group mb-3">
-                    <label for="">Nom</label>
-                    <input type="text" name="nom_fournisseur" class="form-control" placeholder="Entrez nom " required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Prenom</label>
-                    <input type="text" name="prenom_fournisseur" class="form-control" placeholder="Entrez prenom" required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Contact</label>
-                    <input type="int" name="contact_fournisseur" class="form-control" placeholder="Entrez contact" required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Mail</label>
-                    <input type="text" name="mail_fournisseur" class="form-control" placeholder="Entrez mail" required> 
-
-                </div>
-                <div class="form-group mb-3">
-                    <label for="">Pays</label>
-                    <input type="text" name="pays_fournisseur" class="form-control" placeholder="Entrez pays" required> 
-
-                </div>
+                        <h4> Enregistrement des Livraisons</h4>
                 
+                        <?php
+                    $connection = mysqli_connect("localhost","root", "");
+                    $db = mysqli_select_db($connection, 'gestion_stock');
+
+                    if(isset($_POST['augmente']))
+                    {
+                       
+                        $datel= $_POST['id_livraison_fournisseur'];
+                        $idf= $_POST['id_produit'];
+                        $magasin= $_POST['quantite_livree_four'];
+                       
+                        $query = "INSERT INTO livraison_four_produit(id_livraison_fournisseur, id_produit,quantite_livree_four)
+                         VALUES($datel, $idf,'$magasin')";
+                        $query_run = mysqli_query($connection, $query);
+
+                        if($query_run)
+                        {
+                            echo '<script> alert("Enregistrement effectué"); </script>';
+                        
+                        }
+                        else
+                        {
+                          echo '<script> alert("Enregistrement non effectué"); </script>';
+                        }
+                    }
+
+                ?>
+                    <hr>
+              <form action="" method="post">
+               
+                     <div class="form-group mb-3">
+                            <label for="id_livraison_fournisseur">Livraison</label>
+                            <select class="form-control" name="id_livraison_fournisseur">
+                              <option value="">selectionnez le Numero du Fournisseur</option>
+                                <?php
+                                    $sqlcommunes = "select * from livraison_fournisseur where etat=1";
+                                    $rqtcommune = mysqli_query($connection, $sqlcommunes);
+                                    $Donnees = mysqli_fetch_all($rqtcommune); 
+                                  
+                                    foreach ($Donnees as $Donnee){
+                                      echo "<option value='".$Donnee[0]. 
+                                      " '> ".$Donnee[0]. " </option>";
+                                      
+                                    }
+                                  ?>
+                            </select>
+                         </div>
+                        
+                      <div class="form-group mb-3">
+                            <label for="nom_produit">Produit</label>
+                            <select class="form-control" name="id_produit">
+                              <option value="">selectionnez le Produit livre</option>
+                                <?php
+                                    $sqlcommunes = "select * from produit where etat=1";
+                                    $rqtcommune = mysqli_query($connection, $sqlcommunes);
+                                    $Donnees = mysqli_fetch_all($rqtcommune); 
+                                  
+                                    foreach ($Donnees as $Donnee){
+                                      echo "<option value='".$Donnee[0]. 
+                                      " '> ".$Donnee[1]. " </option>";
+                                      
+                                    }
+                                  ?>
+                            </select>
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="quantite_livree_four">Quantite livree</label>
+                            <input type="int" name="quantite_livree_four" class="form-control" placeholder="Entrez la quantite livree " required> 
+
+                     </div>
+               
                 
                 <button type="submit" name="augmente" class="btn btn-success">Enregistrer</button>
-                <a href="./?page=fournisseur" class="btn btn-danger"> Annuler </a>
-            </form>
-
-            <?php
-      $connection = mysqli_connect("localhost","root", "");
-      $db = mysqli_select_db($connection, 'gestion_stock');
-
-      if(isset($_POST['augmente']))
-      {
-          $nomcommune= $_POST['nom_fournisseur'];
-          $nbrehbt= $_POST['prenom_fournisseur'];
-          $contact= $_POST['contact_fournisseur'];
-          $mail= $_POST['mail_fournisseur'];
-          $pays= $_POST['pays_fournisseur'];
-          
-
-          $query = "INSERT INTO fournisseur(nom_fournisseur, prenom_fournisseur, contact_fournisseur, mail_fournisseur, pays_fournisseur) 
-          VALUES('$nomcommune', '$nbrehbt', $contact, ' $mail', '$pays')";
-          $query_run = mysqli_query($connection, $query);
-
-          if($query_run)
-          {
-              echo '<script> alert("Enregistrement effectué"); </script>';
-          }
-          else
-          {
-            echo '<script> alert("Enregistrement non effectué"); </script>';
-          }
-      }
-
-?>
+                <a href="./?page=affichagelivraison" class="btn btn-danger"> Annuler </a>
+              </form>
 
         <div class="clearfix"></div>
-        <h6 class="mb-4 my-4">Fournisseurs déjà Enregistrés</h6>
+        <h6 class="mb-4 my-4">Livraison déjà Enregistrées</h6>
         <table class="table table-bordered">
                <thead class="table-dark">
                  <tr>
                      <th>ID</th>
-                     <th>Nom</th>
-                     <th>Prenom</th>
-                     <th>Contact</th>
-                     <th>Mail</th>
-                     <th>Pays</th>     
+                     <th>Nom Fournisseur</th>
+                     <th>Prenom Fournisseur</th>
+                     <th>Contact Fournisseur</th>
+                     <th>Nom Magasin</th>
+                     <th>Adresse Magasin</th>
+                     <th>Date de livraison</th>
+                     <th>Produit livre</th>
+                     <th>Quantite livree</th>
+                    
                 </tr>
                 </thead>
 
                 <tbody>
                   <?php
-                  $sql1 = "SELECT * FROM fournisseur where etat=1";
+                  $sql1 = "SELECT * FROM livraison_fournisseur inner join magasin on 
+                  livraison_fournisseur.id_magasin = magasin.id_magasin
+                  inner join fournisseur on livraison_fournisseur.id_fournisseur=fournisseur.id_fournisseur 
+                  inner join livraison_four_produit on livraison_four_produit.id_livraison_fournisseur=livraison_fournisseur.id_livraison_fournisseur
+                  inner join produit on livraison_four_produit.id_produit=produit.id_produit where livraison_fournisseur.etat=1";
                   $requete1 = mysqli_query($connection, $sql1);
                   $Donnees = mysqli_fetch_all($requete1);
                   foreach($Donnees as $Donnee){ 
                         echo "<tr>
                         <th>$Donnee[0]</th>
+                        <th>$Donnee[10]</th>
+                        <th>$Donnee[11]</th>
+                        <th>$Donnee[12]</th>
+                        <th>$Donnee[6]</th>
+                        <th>$Donnee[7]</th>
                         <th>$Donnee[1]</th>
-                        <th>$Donnee[2]</th>
-                        <th>$Donnee[3]</th>
-                        <th>$Donnee[4]</th>
-                        <th>$Donnee[5]</th>
+                        <th>$Donnee[22]</th>
+                        <th>$Donnee[19]</th>
+                       
                      
                         
                           </tr>" ;

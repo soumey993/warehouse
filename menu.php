@@ -9,10 +9,15 @@
         </a>
       </li><!-- End Dashboard Nav -->
       <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-layout-text-window-reverse"></i><span>Livraisons</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+        <li>
+            <a href="./?page=affichagelivraison">
+              <i class="bi bi-circle"></i><span>LIVRAISONS</span>
+            </a>
+          </li>
         <li>
             <a href="./?page=livraison">
               <i class="bi bi-circle"></i><span>livraisons</span>
@@ -42,13 +47,19 @@
         </a>
         <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-              <a href="./?page=magasin1">
+              <a href="./?page=magasin">
                 <i class="bi bi-circle"></i><span>magasin</span>
               </a>
             </li>
           <li>
-            <a href="./?page=boutique1">
+            <a href="./?page=boutique">
               <i class="bi bi-journal-text"></i><span>Boutiques</span>
+            </a>
+  
+         </li><!-- End Forms Nav -->
+         <li>
+            <a href="./?page=client">
+              <i class="bi bi-journal-text"></i><span>Clients</span>
             </a>
   
          </li><!-- End Forms Nav -->
@@ -62,7 +73,7 @@
       </li><!-- End Charts Nav -->
 
       <li class="nav-item">
-        <a class="nav-link " data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
           <i class="bi bi-gem"></i><span>Livraisons Client</span><i class="bi bi-chevron-down ms-auto"></i>
         </a>
         <ul id="icons-nav" class="nav-content collapse" data-bs-parent="#sidebar-nav">
@@ -90,19 +101,7 @@
       </li><!-- End Icons Nav -->
 
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="client.php">
-          <i class="bi bi-person"></i>
-          <span>Clients</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="vente.php">
-          <i class="bi bi-question-circle"></i>
-          <span>Achats</span>
-        </a>
-      </li><!-- End F.A.Q Page Nav -->
+     
 
     </ul>
 

@@ -11,13 +11,13 @@
          if(isset($_GET['supprime']))
          {
              
-             $query = "UPDATE fournisseur SET etat = 0  WHERE id_fournisseur ='$id'   ";
+             $query = "UPDATE client SET etat = 0  WHERE id_client ='$id'   ";
              $query_run = mysqli_query($connection, $query);
 
              if($query_run)
              {
                 echo '<script> alert("suppression effectuée effectuée"); </script>';
-                header("location: ./?page=fournisseur");
+                header("location: ./?page=client");
              }
              else{
                 echo '<script> alert("suppression non effectuée"); </script>';
